@@ -1,5 +1,7 @@
 import './App.css'
+import ProgressBar from './components/ProgressBar'
 import Tabs from './components/Tabs'
+import Timer from './components/Timer'
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
       {/* Tabs ------------------------------------- */}
       <Tabs />
       {/* Timer ------------------------------------ */}
+      <Timer />
+      {/* <ProgressBar /> */}
       {/* Setting Icons ---------------------------- */}
     </div>
   )

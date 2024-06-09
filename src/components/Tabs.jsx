@@ -16,7 +16,7 @@ const Tabs = () => {
                 > {tab}
                 </button>
             ))}
-        </div >
+        </div>
     )
 }
 

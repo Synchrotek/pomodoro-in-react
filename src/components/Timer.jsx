@@ -1,18 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { StateContext } from '../context/StateProvider';
 
 const Timer = () => {
-    const [progress, setProgress] = useState(0);
+    const { time, setTime } = useContext(StateContext);
+    const { isActive, setIsActive } = useContext(StateContext);
 
     useEffect(() => {
-        if (progress < 100) {
-            const timer = setInterval(() => {
-                setProgress((prev) => prev + 0.5);
-            }, 100);
-            return () => clearInterval(timer);
+        if (isActive && time > 0) {
+            const interval = setInterval(() => {
+                setTime((time) => time - 1);
+            }, 1000);
+
+            return () => clearInterval(interval);
         }
-    }, [progress]);
+    }, [time, isActive]);
+
+    const handleToggleClock = () => {
+        setIsActive(prevIsActive => !prevIsActive);
+    }
+
+    const getTime = (time) => {
+        const minute = Math.floor(time / 60);
+        const second = time % 60;
+        return `${minute < 10 ? "0" + minute : minute}:${second < 10 ? "0" + second : second}`;
+    }
 
     const getBorderStyle = () => {
+        const progress = time;
         const rotation = (progress / 100) * 360;
         return {
             background: `conic-gradient(#FFA500 ${rotation}deg, transparent 0deg)`
@@ -24,8 +38,12 @@ const Timer = () => {
             <div className='w-full h-full rounded-2xl border-1 border-orange-400 p-1'
                 style={getBorderStyle()}>
                 <div className='w-full h-full bg-black rounded-2xl flex flex-col gap-3 justify-center'>
-                    <div className='text-6xl'>05:20</div>
-                    <div>PASUE</div>
+                    <div className='text-6xl'>{getTime(time)}</div>
+                    <button
+                        onClick={handleToggleClock}
+                    >
+                        {isActive ? "PAUSE" : "START"}
+                    </button>
                 </div>
             </div>
         </div>

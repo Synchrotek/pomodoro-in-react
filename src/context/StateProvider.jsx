@@ -7,8 +7,8 @@ const StateProvider = ({ children }) => {
     const [activeTab, setActiveTab] = useState(0)
     const [isActive, setIsActive] = useState(false);
     const [baseTimeDuration, setBaseTimeDuration] = useState({
-        focus: 26 * 60,
-        shortBreak: 1 * 60,
+        focus: 25 * 60,
+        shortBreak: 5 * 60,
         longBreak: 15 * 60,
     });
     const [initTime, setInitTime] = useState(0);

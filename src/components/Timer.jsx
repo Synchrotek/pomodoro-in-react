@@ -20,9 +20,18 @@ const Timer = () => {
 
             return () => clearInterval(interval);
         }
-    }, [time, isActive, setTime]);
+        if (time === 0) {
+            const notify = new Audio('/sounds/ring01.wav');
+            notify.volume = 0.4;
+            notify.play();
+            setIsActive(false);
+        }
+    }, [time, isActive, setTime, setIsActive]);
 
     const handleToggleClock = () => {
+        if (time == 0) {
+            setTime(initTime);
+        }
         setIsActive(prevIsActive => !prevIsActive);
     }
 
